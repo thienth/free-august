@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title></title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="public/sweetalert/sweetalert.css">
 	<style type="text/css" media="screen">
 		.answer{
 			line-height: 30px;
@@ -45,7 +46,7 @@
 	</div>
 
 	<script type="text/javascript" src="public/js/jquery.min.js"></script>
-	<script type="text/javascript" src="public/js/jquery.countdown.min.js"></script>
+	<script type="text/javascript" src="public/sweetalert/sweetalert.min.js"></script>
 
 	<script type="text/javascript">
 		var turn = 3;
@@ -93,7 +94,10 @@
 		function checkAnswer(answerNo){
 			var currentQ = questionBank[qNo];
 			if(answerNo == currentQ.correct){
-				alert('Chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
+				swal({
+						  title: "Chúc mừng!",
+						  text: "Bạn đã trở thành triệu phú!"
+					});
 				$('#user-score').text(currentQ.score);
 				if(qNo >= questionBank.length-1){
 					var rs = confirm('Ban chien thang!. Co muon thu lai hay khong?');
@@ -111,16 +115,25 @@
 				if(turn > 0){
 					turn--;
 					$('#user-turn').text(turn);
-					alert('Ban da tra loi sai!');
+					swal({
+						  title: "Rất tiếc!",
+						  text: "Bạn suýt trở thành tỷ "
+					});
 				}else{
-					var rs = confirm('Ban da het luot choi. Co muon thu lai hay khong?');
-					if(rs == true){
-						resetOption();
-					}else{
-						alert("Bye bye!");
-						window.close();
-					}
-
+					swal({
+					  title: "Bạn đã hết lượt chơi!",
+					  text: "Bạn có muốn bắt đầu trò chơi mới hay không?",
+					  type: "warning",
+					  showCancelButton: true,
+					  confirmButtonColor: "#DD6B55",
+					  confirmButtonText: "Có, Tôi muốn chơi !",
+					  closeOnConfirm: true
+					},
+					function(rs){
+						if(rs == true){
+							resetOption();
+						}
+					});
 				}
 				
 			}
