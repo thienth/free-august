@@ -8,6 +8,8 @@
 </head>
 <body>
 	<div>
+		<h3>Turn: <span id="user-turn">3</span></h3>
+		<h3 >Score: <span id="user-score">0</span></h3>
 		<h2>Cau hoi so: <span id="qNo"></span></h2>
 		<h3 id="qContent"></h3>
 		<div>
@@ -59,8 +61,17 @@
 			var currentQ = questionBank[qNo];
 			if(answerNo == currentQ.correct){
 				alert('chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
+				$('#user-score').text(currentQ.score);
 			}else{
-				alert('Ban da tra loi sai!');
+				if(turn > 0){
+					turn--;
+					$('#user-turn').text(turn);
+					alert('Ban da tra loi sai!');
+				}else{
+					var rs = confirm('Ban da het luot choi. Co muon thu lai hay khong?');
+					
+				}
+				
 			}
 		}
 		function startGame(){
