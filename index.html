@@ -11,6 +11,7 @@
 		<h3>Turn: <span id="user-turn">3</span></h3>
 		<h3 >Score: <span id="user-score">0</span></h3>
 		<h2>Cau hoi so: <span id="qNo"></span></h2>
+		<div id="clock"></div>
 		<h3 id="qContent"></h3>
 		<div>
 			<button class="answer" onclick="checkAnswer(0)"></button>
@@ -21,6 +22,7 @@
 	</div>
 
 	<script type="text/javascript" src="public/js/jquery.min.js"></script>
+	<script type="text/javascript" src="public/js/jquery.countdown.min.js"></script>
 
 	<script type="text/javascript">
 		var turn = 3;
@@ -44,20 +46,21 @@
 				correct: 3,
 				score: 600
 			},
-			{
-				q: 'Đàn ong có mấy ong chúa?',
-				a: ['Một', 'Hai', 'Ba', 'Bốn'],
-				correct: 0,
-				score: 900
-			},
-			{
-				q: '1 con muỗi có thể sống bao lâu?',
-				a: ['Một tuần', 'Một ngày', 'Ba ngày', 'Bốn ngày'],
-				correct: 0,
-				score: 1500
-			}
+			// {
+			// 	q: 'Đàn ong có mấy ong chúa?',
+			// 	a: ['Một', 'Hai', 'Ba', 'Bốn'],
+			// 	correct: 0,
+			// 	score: 900
+			// },
+			// {
+			// 	q: '1 con muỗi có thể sống bao lâu?',
+			// 	a: ['Một tuần', 'Một ngày', 'Ba ngày', 'Bốn ngày'],
+			// 	correct: 0,
+			// 	score: 1500
+			// }
 		];
 		function checkAnswer(answerNo){
+			// $('#clock').countdown('pause');
 			var currentQ = questionBank[qNo];
 			if(answerNo == currentQ.correct){
 				alert('Chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
@@ -67,15 +70,18 @@
 					if(rs == true){
 						turn = 3;
 						qNo = 0;
+						$('#qNo').text(qNo);
 						$('#user-score').text(0);
 						$('#user-turn').text(turn);
 						startGame();
 					}else{
 						window.close();
 					}
+				}else{
+					qNo++;
+					startGame();
 				}
-				qNo++;
-				startGame();
+				
 			}else{
 				if(turn > 0){
 					turn--;
@@ -106,7 +112,11 @@
 			for (var i = 0; i < listBtnAnswer.length; i++) {
 				$(listBtnAnswer[i]).text(currentQ.a[i]);
 			}
+
+
 		}
+
+
 		$(document).ready(function(){
 			startGame();
 		});
