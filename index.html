@@ -7,11 +7,22 @@
 	<link rel="stylesheet" href="">
 </head>
 <body>
-	
+	<div>
+		<h2>Cau hoi so: <span id="qNo"></span></h2>
+		<h3 id="qContent"></h3>
+		<div>
+			<button class="answer" onclick="checkAnswer(0)"></button>
+			<button class="answer" onclick="checkAnswer(1)"></button>
+			<button class="answer" onclick="checkAnswer(2)"></button>
+			<button class="answer" onclick="checkAnswer(3)"></button>
+		</div>
+	</div>
+
 	<script type="text/javascript" src="public/js/jquery.min.js"></script>
 
 	<script type="text/javascript">
 		var turn = 3;
+		var qNo = 0;
 		var questionBank = [
 			{
 				q: 'Con vịt có mấy chân?',
@@ -44,6 +55,22 @@
 				score: 1500
 			}
 		];
+		function checkAnswer(answerNo){
+			console.log(answerNo);
+		}
+		function startGame(){
+			var currentQ = questionBank[qNo];
+			$('#qNo').text(qNo+1);
+			$('#qContent').text(currentQ.q);
+			var listBtnAnswer = $('.answer');
+			for (var i = 0; i < listBtnAnswer.length; i++) {
+				$(listBtnAnswer[i]).text(currentQ.a[i]);
+			}
+		}
+		$(document).ready(function(){
+			startGame();
+		});
+
 	</script>
 </body>
 </html>
