@@ -56,7 +56,12 @@
 			}
 		];
 		function checkAnswer(answerNo){
-			console.log(answerNo);
+			var currentQ = questionBank[qNo];
+			if(answerNo == currentQ.correct){
+				alert('chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
+			}else{
+				alert('Ban da tra loi sai!');
+			}
 		}
 		function startGame(){
 			var currentQ = questionBank[qNo];
