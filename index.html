@@ -60,8 +60,22 @@
 		function checkAnswer(answerNo){
 			var currentQ = questionBank[qNo];
 			if(answerNo == currentQ.correct){
-				alert('chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
+				alert('Chuc mung ban da tra loi dung, muc thuong: ' + currentQ.score);
 				$('#user-score').text(currentQ.score);
+				if(qNo >= questionBank.length-1){
+					var rs = confirm('Ban chien thang!. Co muon thu lai hay khong?');
+					if(rs == true){
+						turn = 3;
+						qNo = 0;
+						$('#user-score').text(0);
+						$('#user-turn').text(turn);
+						startGame();
+					}else{
+						window.close();
+					}
+				}
+				qNo++;
+				startGame();
 			}else{
 				if(turn > 0){
 					turn--;
@@ -69,7 +83,17 @@
 					alert('Ban da tra loi sai!');
 				}else{
 					var rs = confirm('Ban da het luot choi. Co muon thu lai hay khong?');
-					
+					if(rs == true){
+						turn = 3;
+						qNo = 0;
+						$('#user-score').text(0);
+						$('#user-turn').text(turn);
+						startGame();
+					}else{
+						alert("Bye bye!");
+						window.close();
+					}
+
 				}
 				
 			}
