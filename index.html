@@ -49,6 +49,8 @@
 	<script type="text/javascript" src="public/sweetalert/sweetalert.min.js"></script>
 
 	<script type="text/javascript">
+		var introGameAudio = new Audio('public/intro.mp3');
+		var fiftyAudio = new Audio('public/50_50.mp3');
 		var turn = 3;
 		var qNo = 0;
 		var questionBank = [
@@ -92,6 +94,7 @@
 			startGame();
 		}
 		function checkAnswer(answerNo){
+			fiftyAudio.play();
 			var currentQ = questionBank[qNo];
 			if(answerNo == currentQ.correct){
 				swal({
@@ -102,13 +105,19 @@
 				if(qNo >= questionBank.length-1){
 					var rs = confirm('Ban chien thang!. Co muon thu lai hay khong?');
 					if(rs == true){
-						resetOption();
+						setTimeout(function(){
+							resetOption();
+						}, 2000);
+						
 					}else{
 						window.close();
 					}
 				}else{
 					qNo++;
-					startGame();
+					setTimeout(function(){
+						startGame();
+					}, 2000);
+					
 				}
 				
 			}else{
@@ -139,6 +148,10 @@
 			}
 		}
 		function startGame(){
+			introGameAudio.play();
+			setTimeout(function(){
+				introGameAudio.pause();
+			}, 3000);
 			var currentQ = questionBank[qNo];
 			$('#qNo').text(qNo+1);
 			$('#qContent').text(currentQ.q);
